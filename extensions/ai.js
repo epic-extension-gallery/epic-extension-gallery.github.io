@@ -9,12 +9,31 @@
         blocks: [
           {
             opcode: 'quickask',
-            text: 'Quick Ask [QUERY]',
+            text: 'Quick Say [QUERY]',
             blockType: Scratch.BlockType.REPORTER,
             arguments: {
               QUERY: {
                 type: Scratch.ArgumentType.STRING,
                 defaultValue: 'Hello!'
+              }
+            }
+          },
+          {
+            opcode: 'askwithprompt',
+            text: 'Say [QUERY] With a Prompt [PROMPT] with model [MODEL]',
+            blockType: Scratch.BlockType.REPORTER,
+            arguments: {
+              QUERY: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'Hello!'
+              },
+              PROMPT: {
+                type: Scratch.ArgumentType.STRING,
+                defaultValue: 'you only speak in dog sounds'
+              },
+              MODEL: {
+                type: Scratch.ArgumentType.STRING,
+                menu: 'MODELS'
               }
             }
           },
@@ -30,7 +49,13 @@
             }
           },
 
-        ]
+        ],
+        menus: {
+          MODELS: {
+            acceptReporters: true,
+            items: ['openai', 'openai-fast', 'mistral']
+          }
+        }
       };
     }
 
@@ -39,6 +64,35 @@
         const data = await fetch("https://text.pollinations.ai/" + encodeURIComponent(args.QUERY) + "?private=true")
         const result = await data.text()
         return result
+      } else {
+        return ""
+      }
+    }
+
+    async askwithprompt(args) {
+      if (args.QUERY != null) {
+        const data = await fetch("https://text.pollinations.ai/openai", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "model": `${args.MODEL}`,
+            "messages": [
+              {
+                "role":"system",
+                "content": `${args.PROMPT}`
+              },
+              {
+                "role":"user",
+                "content": `${args.QUERY}`
+              }
+            ],
+            "private": true
+          }),
+        })
+        const result = await data.json()
+        return result['choices'][0]['message']['content']
       } else {
         return ""
       }
