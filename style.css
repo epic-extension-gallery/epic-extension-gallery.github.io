@@ -3,3 +3,11 @@ body {
     font-family: sans-serif;
     color: white;
 }
+
+.extensiondisplay {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.555);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
