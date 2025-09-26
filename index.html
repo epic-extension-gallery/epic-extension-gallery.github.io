@@ -19,11 +19,11 @@
             <img src="images/comments.png" width="380px">
             <h1>Comments</h1>
             <p>Create projects with Better Comments</p>
-            <button onclick='getextension(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`)'>Get</button>
+            <button onclick='getextension(`https:/\/epic-extension-gallery.github.io/extensions/comments.js`)'>Get</button>
         </div></div>
         <script>
-            function getextension() {
-                navigator.clipboard.writeText(`https:/\/epic-extension-gallery.github.io/extensions/comments.js`);
+            function getextension(url) {
+                navigator.clipboard.writeText(url);
                 alert("Copied to clipboard");
             }
         </script>
