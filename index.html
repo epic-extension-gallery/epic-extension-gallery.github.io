@@ -12,7 +12,13 @@
             <img src="images/aiextension.png" width="380px">
             <h1>AI</h1>
             <p>Use AI Generated Content</p>
-            <button onclick=' navigator.clipboard.writeText(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`); '>Get</button>
+            <button onclick='getextension(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`)'>Get</button>
         </div>
+        <script>
+            function getextension() {
+                navigator.clipboard.writeText(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`);
+                alert("Copied to clipboard");
+            }
+        </script>
     </body>
 </html>
