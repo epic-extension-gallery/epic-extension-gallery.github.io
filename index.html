@@ -8,12 +8,19 @@
     <body>
         <h1>Welcome to the Epic Extension Gallery</h1>
         <p>Really cool extensions will be here!</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px;">
         <div class="extensiondisplay">
             <img src="images/aiextension.png" width="380px">
             <h1>AI</h1>
             <p>Use AI Generated Content</p>
             <button onclick='getextension(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`)'>Get</button>
         </div>
+        <div class="extensiondisplay">
+            <img src="images/comments.png" width="380px">
+            <h1>Comments</h1>
+            <p>Create projects with Better Comments</p>
+            <button onclick='getextension(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`)'>Get</button>
+        </div></div>
         <script>
             function getextension() {
                 navigator.clipboard.writeText(`https:/\/epic-extension-gallery.github.io/extensions/ai.js`);
