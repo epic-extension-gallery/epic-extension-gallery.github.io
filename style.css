@@ -1,5 +1,5 @@
 body {
-    background: radial-gradient(rgb(15, 0, 15), rgb(0, 0, 0));
+    background: content-box radial-gradient(rgb(15, 0, 15), rgb(0, 0, 0));
     font-family: sans-serif;
     color: white;
 }
