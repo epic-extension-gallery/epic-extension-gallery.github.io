@@ -1,5 +1,9 @@
 (function(Scratch) {
   'use strict';
+
+  if (!Scratch.extensions.unsandboxed) {
+    throw new Error('Please Unsandbox this extension for it to function.');
+  }
   class Extension {
     constructor() {
       if (typeof Scratch.vm.extensionData == "undefined") {
