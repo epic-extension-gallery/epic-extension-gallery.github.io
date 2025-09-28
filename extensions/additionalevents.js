@@ -6,8 +6,10 @@
         console.log("no epicdata");
         Scratch.vm.extensionData = {};
       }
-      Scratch.vm.extensionData.EPICevents = {};
-      Scratch.vm.extensionData.EPICevents.button = "_NOBUTTONCLICKED_"
+      Scratch.vm.extensionData.EPICevents = {
+        button: "_NOBUTTONCLICKED_",
+        buttons: []
+      };
     }
     getInfo() {
       
@@ -23,14 +25,15 @@
             isEdgeActivated: false
           },
           {
-            opcode: 'whenbuttonclicked',
+            opcode: 'whenButtonClicked',
             text: 'When button with id [ID] clicked (buggy)',
-            blockType: Scratch.BlockType.EVENT,
+            blockType: Scratch.BlockType.HAT,
             isEdgeActivated: false,
             arguments: {
               ID: {
-                type: Scratch.ArgumentType.STRING
-              },
+                type: Scratch.ArgumentType.STRING,
+                menu: 'buttonMenu'
+              }
             }
           },
           {
@@ -47,7 +50,13 @@
               }
             }
           }
-        ]
+        ],
+        menus: {
+          buttonMenu: {
+            acceptReporters: false,
+            items: '_getButtonIDs'
+          }
+        }
         
       };
       
@@ -58,27 +67,28 @@
       button.style.width = "2rem";
       button.style.height = "2rem";
       button.style.padding = "0.375rem";
-      button.src = args.IMG
-      button.id = args.ID
+      button.src = args.IMG;
       button.onclick = function() {
-        callCustomButton(this.id);
-        console.log("button pressed");
+        callCustomButton(args.ID);
       }
       const buttoncontainter = document.getElementsByClassName("controls_controls-container_2xinB")[0];
       buttoncontainter.appendChild(button);
+      Scratch.vm.extensionData.EPICevents.buttons.push(args.ID);
     }
 
-    whenbuttonclicked(args) {
-      if (true) { // when i try to delete it i have some random bracket so useless if
-        const button = Scratch.vm.extensionData.EPICevents.button
-        if (args.ID == button) {
-          return true
-        } else {
-          return false
-        }
+    whenButtonClicked(args) {
+        console.log(`id: ${args.ID}`);
+        console.log(`button: ${Scratch.vm.extensionData.EPICevents.button}`);
+        return true
+    }
+
+    _getButtonIDs() {
+      if (Scratch.vm.extensionData.EPICevents.buttons.length == 0) {
+        return ["no buttons"];
       } else {
-        return false
+        return Scratch.vm.extensionData.EPICevents.buttons || ["no buttons"];
       }
+      return ["no buttons"];
     }
   }
 
@@ -89,8 +99,10 @@
   });
 
   function callCustomButton(id){
-    Scratch.vm.extensionData.EPICevents.button = id
-    Scratch.vm.runtime.startHats('EPICevents_whenbuttonclicked');
+    Scratch.vm.extensionData.EPICevents.button = id;
+    Scratch.vm.runtime.startHats('EPICevents_whenButtonClicked', {
+      ID: id
+    });
   }
 
   Scratch.extensions.register(new Extension());
