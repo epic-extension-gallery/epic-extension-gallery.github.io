@@ -4,7 +4,7 @@
     constructor() {
       if (typeof Scratch.vm.extensionData == "undefined") {
         console.log("no epicdata");
-        Scratch.vm._epicdata = {};
+        Scratch.vm.extensionData = {};
       }
       Scratch.vm.extensionData.EPICevents = {};
       Scratch.vm.extensionData.EPICevents.button = "_NOBUTTONCLICKED_"
