@@ -2,12 +2,12 @@
   'use strict';
   class Extension {
     constructor() {
-      if (typeof Scratch.vm._epicdata == "undefined") {
+      if (typeof Scratch.vm.extensionData == "undefined") {
         console.log("no epicdata");
         Scratch.vm._epicdata = {};
       }
-      Scratch.vm._epicdata.EPICevents = {};
-      Scratch.vm._epicdata.EPICevents.button = "_NOBUTTONCLICKED_"
+      Scratch.vm.extensionData.EPICevents = {};
+      Scratch.vm.extensionData.EPICevents.button = "_NOBUTTONCLICKED_"
     }
     getInfo() {
       
@@ -23,8 +23,8 @@
             isEdgeActivated: false
           },
           {
-            opcode: 'whenbuttonclicked (buggy)',
-            text: 'When button with id [ID] clicked',
+            opcode: 'whenbuttonclicked',
+            text: 'When button with id [ID] clicked (buggy)',
             blockType: Scratch.BlockType.EVENT,
             isEdgeActivated: false,
             arguments: {
@@ -34,8 +34,8 @@
             }
           },
           {
-            opcode: 'createButton (buggy)',
-            text: 'Create button with id:[ID]image:[IMG]',
+            opcode: 'createButton',
+            text: 'Create button with id:[ID]image:[IMG] (buggy)',
             blockType: Scratch.BlockType.COMMAND,
             arguments: {
               ID: {
@@ -70,7 +70,7 @@
 
     whenbuttonclicked(args) {
       if (true) { // when i try to delete it i have some random bracket so useless if
-        const button = Scratch.vm._epicdata.EPICevents.button
+        const button = Scratch.vm.extensionData.EPICevents.button
         if (args.ID == button) {
           return true
         } else {
@@ -89,7 +89,7 @@
   });
 
   function callCustomButton(id){
-    Scratch.vm._epicdata.EPICevents.button = id
+    Scratch.vm.extensionData.EPICevents.button = id
     Scratch.vm.runtime.startHats('EPICevents_whenbuttonclicked');
   }
 
